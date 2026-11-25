@@ -1,0 +1,68 @@
+@startuml
+
+title 
+Tp-Bank Class Diagram
+end title
+
+'Classes
+
+class Customer {
+    - id : Long
+    - lastname : String
+    - firstname : String
+    - email : String
+    -address : String
+
+}
+enum AccountStatus{
+    ON_HOLD
+    ACTIVE
+    BLOCKED
+    CLOSED
+}
+
+abstract class Account {
+    - id : Long
+    - numberAccount : String
+    - solde : BigDecimal
+    - openDate : DateTime
+    - status : AccountStatus
+}
+
+class CurrentAccount {
+    - authorizedOverdraft : Integer
+}
+
+class SavingsAccount {
+    - interestRates : BigDecimal
+}
+
+enum OperationStatus{
+    ON_HOLD
+    APPROVED
+    EXECUTED
+    REJECTED
+    CANCELLED
+}
+
+class Operation {
+    - id : Long
+    - operationDate : DateTime
+    - amount : BigDecimal
+    - operationType : String
+    - Status : OperationStatus
+}
+
+class Deposit
+class Withdrawal
+
+'Relationship
+
+Customer "1...1" ---- "1...*" Account
+Operation "0...*" ---- "1...*" Account
+Account <|--- CurrentAccount
+Account <|--- SavingsAccount
+Operation <|--- Deposit
+Operation <|--- Withdrawal
+
+@enduml
